@@ -4,6 +4,7 @@ require('dotenv').config()
 
 
 const v1ProductRouter = require('./v1/routes/ProductRoutes')
+const v1UserRouter = require("./v1/routes/UserRoutes")
 
 
 const app = express()
@@ -11,6 +12,7 @@ app.use(express.json());
 
 
 app.use('/api/v1/products', v1ProductRouter)
+app.use('/api/v1/users', v1UserRouter)
 const PORT = process.env.PORT || 5000
 
 

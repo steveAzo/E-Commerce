@@ -9,4 +9,5 @@ router.get('/:productId', ProductController.getOneWorkout)
 router.delete('/:productId', ProductController.deleteOneProduct)
 router.patch('/:productId', ProductController.updateOneProduct)
 
+
 module.exports = router
