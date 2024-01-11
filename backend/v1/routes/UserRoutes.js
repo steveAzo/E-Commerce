@@ -5,6 +5,8 @@ const UserController = require("../../controllers/UserController")
 
 
 
+
+//routes for users
 router.post('/', UserController.createUser)
 router.patch('/:userId', UserController.updateUser)
 router.get('/', UserController.getAllUsers)
