@@ -10,9 +10,9 @@ const CartSchema = new Schema({
 
 const UserSchema = new Schema({
     cart: { type: CartSchema, default: { items: [] } } ,
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    password: { type: String, required: true },
+    name: { type: String, required: true, unique: true, },
+    email: { type: String, required: true, },
+    password: { type: String, required: true, minlength: 4, },
     checkoutHistory: [{ type: Schema.Types.ObjectId, ref: 'Checkout' }]
 })
 
