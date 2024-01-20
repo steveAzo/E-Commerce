@@ -12,6 +12,9 @@ const app = express()
 app.use(express.json());
 
 
+
+
+
 app.use('/api/v1/products', v1ProductRouter)
 app.use('/api/v1/users', v1UserRouter)
 app.use('/api/v1/checkouts', v1CheckoutRouter)
