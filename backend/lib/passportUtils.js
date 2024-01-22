@@ -14,7 +14,7 @@ function genPassword(password) {
         .toString("hex")
     return {
         salt: salt,
-        hash: hash,
+        hash: genHash,
     }
 }
 

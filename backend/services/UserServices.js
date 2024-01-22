@@ -1,8 +1,18 @@
 const User = require('../models/User')
+const passwordUtils = require('../lib/passportUtils')
+
+const { genPassword, validPassword } = passwordUtils
 
 const createUser = async (userDetails) => {
     try {
-        const User1 = new User(userDetails)
+        const { password, ...otherDetails } = userDetails
+        const saltHash = genPassword(password)
+
+        const User1 = new User({
+            ...otherDetails,
+            salt: saltHash.salt,
+            hash: saltHash.hash,
+        })
         const newUser = await User1.save()
         return newUser;
     } catch(error) {
@@ -10,6 +20,8 @@ const createUser = async (userDetails) => {
         return { success: false, error: error.message || "Unknown Error" };
     }
 }
+
+
 
 const updateUser = async (userId, updateDetails) => {
     try {

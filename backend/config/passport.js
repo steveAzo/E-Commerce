@@ -3,6 +3,8 @@ const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/User')
 const passwordUtils = require('../lib/passportUtils')
 
+require('../config/passport')(passport)
+
 const { validPassword } = passwordUtils
 
 passport.use(
