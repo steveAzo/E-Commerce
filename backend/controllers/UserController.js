@@ -4,6 +4,7 @@ const userServices = require("../services/UserServices")
 
 const createUser = async (req, res) => {
     try {
+          
         const userDetails = req.body
         const UserCreated = await userServices.createUser(userDetails)
         res.status(201).json({ success: true, data: UserCreated })
