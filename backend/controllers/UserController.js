@@ -6,10 +6,11 @@ const createUser = async (req, res) => {
     try {
           
         const userDetails = req.body
-        const UserCreated = await userServices.createUser(userDetails)
-        res.status(201).json({ success: true, data: UserCreated })
+        const userCreated = await userServices.createUser(userDetails)
+        res.status(201).json({ success: true, data: userCreated })
     } catch(error) {
-        return { success: false, error: error.message || "Internal Server Error" }
+        
+        res.status(500).json({ success: false, error: error.message || "Internal Server Error" });
     }
 }
 

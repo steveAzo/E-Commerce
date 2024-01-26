@@ -16,7 +16,7 @@ const createUser = async (userDetails) => {
         const newUser = await User1.save()
         return newUser;
     } catch(error) {
-        console.error("Error in creating a new User")
+        console.error("Error in creating a new User: ", error)
         return { success: false, error: error.message || "Unknown Error" };
     }
 }
