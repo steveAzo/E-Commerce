@@ -4,6 +4,7 @@ import Profile from "./components/profile.js";
 import TodoList from "./components/try.js";
 import PackingList from "./components/one.js";
 
+
 const user = {
   name: 'Stephen Kwaku',
   imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
@@ -34,6 +35,7 @@ function App() {
         <br/>
         <TodoList/>
         <PackingList/>
+      
         
 
       </div>
