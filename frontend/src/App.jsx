@@ -1,16 +1,15 @@
-import Navbar1 from "./components/Nav1.jsx";
+import Navbar1 from "./components/Nav1";
 
 
 function App() {
   return (
-    <div>
-      <div className="App">
-        <Navbar1 />
-        <h1>Hello World</h1>
-      
-      </div>
-    </div>
-  );
+    <>
+    <Navbar1 />
+      <h1>Hello World</h1>
+    </>
+  )
 }
 
 export default App;
+
+
