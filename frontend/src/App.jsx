@@ -1,6 +1,6 @@
-import Navbar1 from "./components/Nav1";
 import { BrowserRouter as Router,  Route, Routes } from 'react-router-dom'
 import HomePage from "./pages/HomePage";
+import SearchResults from './pages/SearchResults';
 
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<HomePage />}/>
+            <Route path='search' element={<SearchResults />}/>
           </Routes>
         </div>
     

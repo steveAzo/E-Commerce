@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { RiSearchLine } from 'react-icons/ri';
+import React, { useState } from 'react'
+import { RiSearchLine } from 'react-icons/ri'
+import { useNavigate } from 'react-router'
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
 
   const performSearch = () => {
-    alert('You searched for: ' + searchQuery);
+    navigate(`/search?query=${searchQuery}`)
   };
 
   return (
