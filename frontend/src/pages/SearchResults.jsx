@@ -2,6 +2,9 @@ import Navbar1 from "../components/Nav1";
 import React from "react";
 import { useLocation } from "react-router";
 import SideBar1 from "../components/SideBar";
+import ProductSearched from "../components/SearchedProducts";
+
+
 
 export default function SearchResults() {
     const { search } = useLocation()
@@ -12,13 +15,18 @@ export default function SearchResults() {
         <div>
             <Navbar1 />
         </div>
-        <div>
-            <h1>Search Result Page</h1>
-            <p>Displaying results for: {query}</p>
+        <div className="flex">
+            <div className="w-1/3 mt-8">
+                <SideBar1 />
+            </div>
+            <div className="w-2/3">
+                <h1>Search Result for: {query}</h1>
+                <ProductSearched />
+            </div>
+
         </div>
-        <div>
-            <SideBar1 />
-        </div>
+        
+        
             
         </>
     )
