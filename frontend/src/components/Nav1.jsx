@@ -30,7 +30,7 @@ export default function Navbar1() {
                     <ul className={`lg:flex space-x-4 text-black m-0 pl-8 ${menuOpen ? 'block' : 'hidden'}`}>
                         <li>
                             <NavLink 
-                            to="#" 
+                            to="/" 
                             className={`hover:text-gray-500 ${active === 'home' ? 'text-gray-500' : ''}`}
                             onClick={() => handleNavLinkClick('home')}
                             >
