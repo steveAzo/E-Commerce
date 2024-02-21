@@ -39,7 +39,7 @@ export default function Navbar1() {
                         </li>
                         <li>
                             <NavLink 
-                            to="#" 
+                            to="/cart" 
                             className={`hover:text-gray-500 ${active === 'category' ? 'text-gray-500' : ''}`}
                             onClick={() => handleNavLinkClick('category')}
                             >

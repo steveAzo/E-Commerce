@@ -10,8 +10,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductDetails({ product, open, setOpen }) {
+export default function ProductDetails({ product, open, setOpen, addToCart, setCartItems }) {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
+
+  const handleAddToCart = () => {
+    console.log("Adding to cart:", product);
+    console.log("addToCart function:", addToCart);
+    console.log("setCartItems function:", setCartItems);
+
+    addToCart(product, setCartItems)
+    setOpen(false)
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -138,6 +147,7 @@ export default function ProductDetails({ product, open, setOpen }) {
                           <div className="mt-6">
                             <button
                               type="submit"
+                              onClick={handleAddToCart}
                               className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                             >
                               Add to bag
