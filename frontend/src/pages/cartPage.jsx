@@ -3,7 +3,9 @@ import { CheckIcon, ClockIcon } from '@heroicons/react/20/solid'
 
 
 
-export default function Cart({ cartItems }) {
+export default function Cart({ selectedProducts }) {
+  console.log(selectedProducts);
+  
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -14,7 +16,7 @@ export default function Cart({ cartItems }) {
             <h2 className="sr-only">Items in your shopping cart</h2>
 
             <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
-              {cartItems.map((cartItem, productIdx) => (
+              {selectedProducts.map((cartItem, productIdx) => (
                 <li key={cartItem.id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
                     <img

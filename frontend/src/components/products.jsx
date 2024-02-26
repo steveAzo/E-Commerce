@@ -1,23 +1,25 @@
 import { useState } from "react"
 import ProductDetails from "./ProductDetails"
 import products from "./productData"
+import Cart from "../pages/cartPage"
 
-  export default function Product({ cartItems, setCartItems }) {
-    console.log(cartItems, setCartItems);
+  export default function Product() {
 
 
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
+    const [selectedProducts, setSelectedProducts] = useState([])
 
-    const addToCart = (product, setCartItems) => {
-      console.log("Adding to cart in parent component:", product);
-      setCartItems((prevCartItems) => [...prevCartItems, product])
-      
-    }
 
     const handleProductClick = (product) => {
       setSelectedProduct(product)
       setModalOpen(true)
+    }
+
+    const addToCart = () => {
+      setSelectedProducts((prevProducts) => [...prevProducts, {...selectedProduct}])
+      setModalOpen(false)
+      console.log("selceted products: ", selectedProducts)
     }
 
 
@@ -73,10 +75,10 @@ import products from "./productData"
                 open={modalOpen}
                 setOpen={setModalOpen}
                 addToCart={addToCart}
-                setCartItems={setCartItems}
-                
               />
             )}
+
+            <Cart selectedProducts={selectedProducts} />  
           </div>
   
           <div className="mt-12 flex px-4 sm:hidden">

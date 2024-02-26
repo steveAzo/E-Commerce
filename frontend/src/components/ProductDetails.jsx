@@ -10,18 +10,18 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductDetails({ product, open, setOpen, addToCart, setCartItems }) {
+export default function ProductDetails({ product, open, setOpen, addToCart }) {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
 
   const handleAddToCart = () => {
     console.log("Adding to cart:", product);
     console.log("addToCart function:", addToCart);
-    console.log("setCartItems function:", setCartItems);
 
-    addToCart(product, setCartItems)
+    addToCart(product)
     setOpen(false)
   }
 
+ 
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -53,7 +53,7 @@ export default function ProductDetails({ product, open, setOpen, addToCart, setC
                   <button
                     type="button"
                     className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                    onClick={() => setOpen(false)}
+                    onClick={handleAddToCart}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -146,8 +146,8 @@ export default function ProductDetails({ product, open, setOpen, addToCart, setC
 
                           <div className="mt-6">
                             <button
-                              type="submit"
                               onClick={handleAddToCart}
+                              type="button"
                               className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                             >
                               Add to bag
