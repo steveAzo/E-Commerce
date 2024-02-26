@@ -1,9 +1,9 @@
 
 import { CheckIcon, ClockIcon } from '@heroicons/react/20/solid'
+import { useCart } from '../contexts/CartContext';
 
-
-
-export default function Cart({ selectedProducts }) {
+export default function Cart() {
+  const { selectedProducts } = useCart()
   console.log(selectedProducts);
   
   return (
@@ -123,7 +123,7 @@ export default function Cart({ selectedProducts }) {
             <div className="mt-6 text-center text-sm text-gray-500">
               <p>
                 or{' '}
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <a href="/" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Continue Shopping
                   <span aria-hidden="true"> &rarr;</span>
                 </a>

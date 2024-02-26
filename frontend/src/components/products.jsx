@@ -1,14 +1,14 @@
 import { useState } from "react"
 import ProductDetails from "./ProductDetails"
 import products from "./productData"
-import Cart from "../pages/cartPage"
+import { useCart } from "../contexts/CartContext"
 
   export default function Product() {
+    const { addToCart } = useCart()
 
 
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
-    const [selectedProducts, setSelectedProducts] = useState([])
 
 
     const handleProductClick = (product) => {
@@ -16,11 +16,7 @@ import Cart from "../pages/cartPage"
       setModalOpen(true)
     }
 
-    const addToCart = () => {
-      setSelectedProducts((prevProducts) => [...prevProducts, {...selectedProduct}])
-      setModalOpen(false)
-      console.log("selceted products: ", selectedProducts)
-    }
+    
 
 
 
@@ -74,11 +70,13 @@ import Cart from "../pages/cartPage"
                 product={selectedProduct}
                 open={modalOpen}
                 setOpen={setModalOpen}
-                addToCart={addToCart}
+                addToCart={() => {
+                  addToCart(selectedProduct)
+                  setModalOpen(false)
+                }}
               />
             )}
 
-            <Cart selectedProducts={selectedProducts} />  
           </div>
   
           <div className="mt-12 flex px-4 sm:hidden">

@@ -3,14 +3,14 @@ import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
-
-
+import { useCart } from '../contexts/CartContext'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ProductDetails({ product, open, setOpen, addToCart }) {
+export default function ProductDetails({ product, open, setOpen }) {
+  const { addToCart } = useCart()
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
 
   const handleAddToCart = () => {
