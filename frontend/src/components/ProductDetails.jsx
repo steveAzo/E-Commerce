@@ -53,7 +53,9 @@ export default function ProductDetails({ product, open, setOpen }) {
                   <button
                     type="button"
                     className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                    onClick={handleAddToCart}
+                    onClick={() => {
+                      setOpen(false)
+                    }}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -150,7 +152,7 @@ export default function ProductDetails({ product, open, setOpen }) {
                               type="button"
                               className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                             >
-                              Add to bag
+                              Add to cart
                             </button>
                           </div>
 

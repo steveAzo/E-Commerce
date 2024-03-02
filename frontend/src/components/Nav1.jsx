@@ -1,12 +1,18 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faList, faBlog, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faList, faBlog, faEnvelope, faTimes, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { useAuth } from './../contexts/AuthContext'
+import Account from './Dropdown';
 
 
 export default function Navbar1() {
     const [active, setActive] = useState('')
     const [menuOpen, setMenuOpen] = useState(false)
+    const navigate = useNavigate()
+    const { isSignedIn, signIn } = useAuth()
+
+
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen)
@@ -16,6 +22,10 @@ export default function Navbar1() {
         window.scrollTo(0, 0)
     }
 
+    const handleSignInClick = () => {
+        navigate('/signin');
+      };
+
 
     return (
         <nav className="bg-gray-200 p-4 border-b border-gray-400">
@@ -24,7 +34,7 @@ export default function Navbar1() {
                     <FontAwesomeIcon icon={faHome} className="text-black mr-5"/>
                     <div className="lg:hidden">
                         <button onClick={toggleMenu} className="text-black hover:text-gray-300">
-                            <FontAwesomeIcon icon={menuOpen ? faList : faList} />
+                            <FontAwesomeIcon icon={menuOpen ? faTimes : faList} />
                         </button>
                     </div>
                     <ul className={`lg:flex space-x-4 text-black m-0 pl-8 ${menuOpen ? 'block' : 'hidden'}`}>
@@ -48,7 +58,7 @@ export default function Navbar1() {
                         </li>                        
                         <li>
                             <NavLink 
-                            to="#" 
+                            to="/signup" 
                             className={`hover:text-gray-500 ${active === 'blog' ? 'text-gray-500' : ''}`}
                             onClick={() => handleNavLinkClick('blog')}
                             >
@@ -63,16 +73,27 @@ export default function Navbar1() {
                             >
                              Contact
                             </NavLink>
-                        </li>                    
+                        </li>  
+                                           
                     </ul>
                 </div>
                 <div>
-                    <a href='#' className='text-black hover:text-gray-300 mr-2'>
-                        <FontAwesomeIcon icon={faList} />
-                    </a>
-                    <a href="#" className="text-black hover:text-gray-300">
-                        <FontAwesomeIcon icon={faEnvelope} />
-                    </a>
+                    {isSignedIn ? (
+                        <Account />
+                    ) : (
+                        <button
+                            type="button"
+                            className="rounded-md bg-green-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            onClick={handleSignInClick}
+                        >
+                            SignIn
+                        </button>
+                    )}
+                    
+                    <NavLink to="/cart" className="text-black ml-4 pl-8 pr-4">
+                        <FontAwesomeIcon icon={faShoppingCart} className="text-xl" />
+                    </NavLink>
+                    
                 </div>
             </div>
             

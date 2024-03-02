@@ -1,10 +1,8 @@
 import { useState } from "react"
 import ProductDetails from "./ProductDetails"
 import products from "./productData"
-import { useCart } from "../contexts/CartContext"
 
   export default function Product() {
-    const { addToCart } = useCart()
 
 
     const [selectedProduct, setSelectedProduct] = useState(null)
@@ -70,10 +68,6 @@ import { useCart } from "../contexts/CartContext"
                 product={selectedProduct}
                 open={modalOpen}
                 setOpen={setModalOpen}
-                addToCart={() => {
-                  addToCart(selectedProduct)
-                  setModalOpen(false)
-                }}
               />
             )}
 
