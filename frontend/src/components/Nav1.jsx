@@ -10,7 +10,7 @@ export default function Navbar1() {
     const [active, setActive] = useState('')
     const [menuOpen, setMenuOpen] = useState(false)
     const navigate = useNavigate()
-    const { isSignedIn, signIn } = useAuth()
+    const { isSignedIn } = useAuth()
 
 
 

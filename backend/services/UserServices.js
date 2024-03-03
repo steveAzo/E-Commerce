@@ -1,25 +1,24 @@
 const User = require('../models/User')
-const passwordUtils = require('../lib/passportUtils')
 
-const { genPassword, validPassword } = passwordUtils
 
 const createUser = async (userDetails) => {
     try {
-        const { password, ...otherDetails } = userDetails
-        const saltHash = genPassword(password)
+        const { password, ...otherDetails } = userDetails;
 
-        const User1 = new User({
+        const newUser = new User({
             ...otherDetails,
-            salt: saltHash.salt,
-            hash: saltHash.hash,
-        })
-        const newUser = await User1.save()
-        return newUser;
-    } catch(error) {
-        console.error("Error in creating a new User: ", error)
+            password: password, // Store the plain password, without hashing
+        });
+
+        await newUser.save();
+
+        return { success: true, user: newUser };
+    } catch (error) {
+        console.error("Error in creating a new User: ", error);
         return { success: false, error: error.message || "Unknown Error" };
     }
-}
+};
+
 
 
 

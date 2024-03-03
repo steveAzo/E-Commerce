@@ -5,7 +5,7 @@ import { useNavigate } from "react-router"
 
 
 export default function SignIn() {
-  const { isSignedIn, signIn } = useAuth()
+  const { signIn } = useAuth()
   const navigate = useNavigate()
 
 

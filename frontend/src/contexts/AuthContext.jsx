@@ -1,9 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-    const [isSignedIn, setIsSignedIn] = useState(false)
+    const initialIsSignedIn = localStorage.getItem("isSignedIn") === "true"
+    const [isSignedIn, setIsSignedIn] = useState(initialIsSignedIn)
+
 
     const signIn = () => {
         setIsSignedIn(true)
@@ -12,6 +14,10 @@ export const AuthProvider = ({ children }) => {
     const signOut = () => {
         setIsSignedIn(false)
     }
+
+    useEffect(() => {
+        localStorage.setItem("isSignedIn", isSignedIn)
+    }, [isSignedIn])
 
     return (
         <AuthContext.Provider value={{ isSignedIn, signIn, signOut }}>

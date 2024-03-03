@@ -3,7 +3,7 @@ import { CheckIcon, ClockIcon } from '@heroicons/react/20/solid'
 import { useCart } from '../contexts/CartContext';
 
 export default function Cart() {
-  const { selectedProducts } = useCart()
+  const { selectedProducts, removeFromCart } = useCart()
   console.log(selectedProducts);
   
   return (
@@ -63,6 +63,7 @@ export default function Cart() {
 
                         <button
                           type="button"
+                          onClick={() => removeFromCart(cartItem.id)}
                           className="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:ml-0 sm:mt-3"
                         >
                           <span>Remove</span>

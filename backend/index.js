@@ -36,27 +36,6 @@ mongoose.connect(process.env.MONGO_URI)
         })
 
 
-const sessionStore = new MongoStore ({
-    mongooseConnection: mongoose.connection,
-    collection: 'sessions',
-}) 
-
-app.use(
-    session({
-        secret: process.env.SECRET,
-        resave: false,
-        saveUninitialized: true,
-        store: sessionStore,
-        cookie: {
-            maxAge: 1000 * 30,
-        },
-    })
-)
-
-
-app.use(passport.initialize())
-app.use(passport.session())
-
 
 
 
