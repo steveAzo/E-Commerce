@@ -17,7 +17,7 @@ const CheckoutSchema = new mongoose.Schema({
     paymentMethod: String,
     status: String,
     shippingAddress: String
-})
+}, { timestamps: true })
 
 const Checkouts = mongoose.model('Checkout', CheckoutSchema)
 
