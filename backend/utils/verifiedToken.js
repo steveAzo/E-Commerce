@@ -3,6 +3,8 @@ const VerificationToken = require('../models/verificationToken')
 const crypto = require('crypto');
 const verifyService = require("../services/verifyService")
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv')
+
 
 
 
@@ -34,8 +36,8 @@ const sendVerificationEmail = async (email, tokenPromise) => {
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-                user: 'stephenazongo77@gmail.com',
-                pass: 'qhny rtap vlrr brdz',
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
             },
         });
 
