@@ -3,9 +3,8 @@ const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const { promisify } = require('util')
-const VerificationToken = require('../models/verificationToken')
 const { v4: uuidv4 } = require('uuid')
-const { saveVerificationToken } = require("../utils/verifiedToken")
+const { saveVerificationToken, sendVerificationEmail } = require("../utils/verifiedToken")
 
 
 
@@ -16,19 +15,27 @@ async function signupUser(userData) {
         const { password, ...otherDetails } = userData
 
         const hashedPassword = await bcrypt.hash(password, 10)
+        const timestamp = new Date().getTime().toString();
+        const expirationTime = new Date();
+        expirationTime.setHours(expirationTime.getHours() + 1); // Set the expiration time (1 hour in this example)
+
+        const verificationToken = crypto.createHash('sha256').update(timestamp).digest('hex');
+
         const newUser = new User({
             ...otherDetails,
             password: hashedPassword,
+            verificationToken: verificationToken,
         })
 
+        
         await newUser.save();
+        console.log('User ID:', newUser._id);
 
-        const isTokensaved = await saveVerificationToken(newUser._id)
 
-        if(!isTokensaved) {
-            console.error('Error saving verification token.')
-        }
+        // Send the verification email
+        await sendVerificationEmail(newUser.email, newUser.verificationToken);
 
+        
         return { success: true, user: newUser }
     } catch(error) {
         console.error("Error in user signup:", error)

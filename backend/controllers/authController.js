@@ -11,7 +11,6 @@ async function signup(req, res) {
         const result = await AuthService.signupUser(userData)
 
         if (result.success) {
-            await saveVerificationToken(result.user._id)
             res.status(201).json({ message: 'Signup successful', user: result.user })
         } else {
             res.status(400).json({ error: result.error })

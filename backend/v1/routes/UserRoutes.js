@@ -4,6 +4,7 @@ const router = express.Router()
 const UserController = require("../../controllers/UserController")
 const AuthController = require("../../controllers/authController")
 const { protect } = require("../../middleware/authMiddleware")
+const verifyController = require("../../controllers/verifyController")
 
 
 
@@ -20,6 +21,9 @@ router.delete('/:userId', UserController.deleteOneUser)
 router.post('/forgot-password', AuthController.forgotPassword);
 router.post('/reset-password', AuthController.resetPassword);
 router.get('/logout', AuthController.logout)
+router.get('/verify/:token', verifyController.handleEmailVerification);
+
+
 
 
 

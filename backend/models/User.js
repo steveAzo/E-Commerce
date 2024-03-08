@@ -2,6 +2,8 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 const { isEmail } = require('validator')
 
+
+
 const CartSchema = new Schema({
     items: [{
         product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
@@ -17,7 +19,6 @@ const UserSchema = new Schema({
     name: { 
         type: String, 
         required: true, 
-        unique: true, 
     },
     email: { 
         type: String, 
@@ -56,11 +57,15 @@ const UserSchema = new Schema({
         select: false
     },
     verificationToken: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'VerificationToken',
+        type: String,
+        select: false,
+        expirationTime: {
+            type: Date,
+            required: true,
+        },
     },
     verificationCodeExpires: {
-        type: String,
+        type: Date,
         select: false
     },
     firstTimeLogin: {
