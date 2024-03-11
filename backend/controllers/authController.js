@@ -11,7 +11,14 @@ async function signup(req, res) {
         const result = await AuthService.signupUser(userData)
 
         if (result.success) {
-            res.status(201).json({ message: 'Signup successful', user: result.user })
+            const successResponse = {
+                success: true,
+                message: 'Signup successful. Please login.',
+            }
+
+            const redirectUrl = '/signin'
+
+            res.status(201).json({ ...successResponse, redirectUrl })
         } else {
             res.status(400).json({ error: result.error })
         } 
@@ -33,7 +40,7 @@ async function login(req, res) {
             res.status(401).json({ error: result.error })
         } 
     } catch (error) {
-        console.error('Error during login', error)
+        console.error('Error during login:', error)
         res.status(500).json({ error: 'Internal server error' })
     }
 }
