@@ -1,17 +1,52 @@
 import React from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { useNavigate } from "react-router"
+import axios from 'axios'
+import { useState } from "react"
+import { ScaleLoader } from 'react-spinners';
+
+
 
 
 
 export default function SignIn() {
   const { signIn } = useAuth()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
 
 
-  const handleLogin = () => {
-    signIn()
-    navigate("/")
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+    
+    const email = document.getElementById('email').value
+    const password = document.getElementById('password').value
+
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    try {
+      setLoading(true)
+      console.log("Sending login request...")
+      const response = await axios.post("http://localhost:5000/api/v1/users/login", {
+        email,
+        password,
+      }, { withCredentials: true } )
+
+      console.log("Response:", response.data)
+
+      if (response.data.status === "success") {
+        console.log("Login successful!");
+        signIn(response.data.token, response.data.email)
+        navigate("/")
+      } else {
+        console.error("Error during login")
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    } finally {
+      setLoading(false);
+    }
   }
 
 
@@ -32,7 +67,7 @@ export default function SignIn() {
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
             <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-              <form className="space-y-6" action="#" method="POST">
+              <form onSubmit={handleLogin} className="space-y-6" action="" method="POST">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                     Email address
@@ -89,9 +124,14 @@ export default function SignIn() {
                   <button
                     onClick={handleLogin}
                     type="submit"
+                    disabled={loading}
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Sign in
+                    {loading ? (
+                    <ScaleLoader color="#fff" loading={loading} height={20} />
+                    ) : (
+                      'Login'
+                    )}
                   </button>
                 </div>
               </form>

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +14,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ScaleLoader } from 'react-spinners';
+
 
 function Copyright(props) {
   return (
@@ -31,13 +39,45 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true)
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    const userData = {
+      name: `${data.get('firstName')} ${data.get('lastName')}`,
+      email: data.get('email'),
+      password: data.get('password'),
+      phoneNumber: data.get('phoneNumber'),
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/users/signup', userData)
+
+      if (response.data.success) {
+        toast.success(response.data.message)
+        
+        navigate(response.data.redirectUrl)
+
+      } else {
+        console.error('Error signing up user:', response.data.error)
+      }
+
+      console.log('User signed up successfully:', response.data)
+    } catch(error) {
+      console.error('Error signing up user:', error.response.data.error)
+    } finally {
+      setLoading(false)
+    }
+
   };
 
   return (
@@ -103,6 +143,16 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phoneNumber"
+                  label="Phone Number"
+                  name="phoneNumber"
+                  autoComplete="tel"
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
@@ -114,8 +164,13 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
             >
-              Sign Up
+              {loading ? (
+              <ScaleLoader color="#fff" loading={loading} height={20} />
+              ) : (
+                'Sign Up'
+              )}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
@@ -126,6 +181,7 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
+        <ToastContainer position="top-center" autoClose={3000} />
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
